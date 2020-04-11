@@ -1,11 +1,24 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
+    title: `Chess Club Shop`,
     description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    author: `@peterkerins`,
   },
   plugins: [
+    `gatsby-plugin-stripe`,
     `gatsby-plugin-react-helmet`,
+    {
+      resolve: `gatsby-source-stripe`,
+      options: {
+        objects: [`Product`, `Sku`],
+        secretKey: process.env.API_KEY,
+        downloadFiles: true,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
